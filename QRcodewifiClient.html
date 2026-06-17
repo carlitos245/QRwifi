@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Générateur QR Code WiFi</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 40px auto; }
+    input, select { width: 100%; padding: 10px; margin: 8px 0; }
+    button { width: 100%; padding: 12px; background: #0078ff; color: white; border: none; cursor: pointer; }
+    #qrcode { margin-top: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<h2>Générateur de QR Code WiFi</h2>
+
+<label>Nom du WiFi (SSID)</label>
+<input type="text" id="ssid" placeholder="Ex: WIFICHAMBRE-C">
+
+<label>Mot de passe</label>
+<input type="text" id="password" placeholder="Mot de passe WiFi">
+
+<label>Sécurité</label>
+<select id="security">
+  <option value="WPA">WPA/WPA2</option>
+  <option value="WPA2">WPA2</option>
+  <option value="WPA3">WPA3</option>
+  <option value="nopass">Sans mot de passe</option>
+</select>
+
+<button onclick="generateQR()">Générer le QR Code</button>
+
+<div id="qrcode"></div>
+
+<script>
+function generateQR() {
+  const ssid = document.getElementById("ssid").value;
+  const password = document.getElementById("password").value;
+  const security = document.getElementById("security").value;
+
+  const wifiString = `WIFI:T:${security};S:${ssid};P:${password};;`;
+
+  document.getElementById("qrcode").innerHTML = "";
+  new QRCode(document.getElementById("qrcode"), wifiString);
+}
+</script>
+
+</body>
+</html>
